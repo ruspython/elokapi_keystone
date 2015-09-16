@@ -1,56 +1,39 @@
-'use strict()';
+module.exports = function (grunt) {
 
-var config= {
-	port: 3000
-};
-
-module.exports = function(grunt) {
-
-	// Load grunt tasks automatically
-	require('load-grunt-tasks')(grunt);
-
-	// Time how long tasks take. Can help when optimizing build times
-	require('time-grunt')(grunt);
-
-	var options = {
-		config: {
-			src: './grunt/*.js'
+	grunt.initConfig({
+		less: {
+			options: {
+				paths: ["assets/css"]
+			},
+			files: {
+				"public/styles/site.min.css": "public/styles/site.less"
+			}
 		},
-		pkg: grunt.file.readJSON('package.json'),
-		nodemon: {
-			serve: {
-				script: 'keystone.js',
-				options: {
-					ignore: ['node_modules/**']
+		concat: {
+			production: {
+				src: [
+					'bower_components/jquery/dist/jquery.js',
+					'bower_components/responsive-nav/responsive-nav.js',
+					'bower_components/whatsapp-sharing/dist/whatsapp-button.js'
+					//'public/js/custom/script.js',
+				],
+				dest: '.tmp/js/script.js'
+			}
+		},
+		uglify: {
+			production: {
+				files: {
+					'public/js/script.js': '.tmp/js/script.js'
 				}
 			}
 		}
-	};
-
-	var configs = require('load-grunt-configs')(grunt, options);
-	
-	// Project configuration.
-	grunt.initConfig(configs);
-
-	// load jshint
-	grunt.registerTask('lint', [
-		'jshint'
-	]);
-
-	grunt.registerTask('dev', [
-		'sass',
-		'watch'
-	]);
-
-	// default option to connect server
-	grunt.registerTask('serve', [
-		'jshint',
-		'concurrent:dev'
-	]);
-
-	grunt.registerTask('server', function () {
-		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run(['serve:' + target]);
 	});
+
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	
+
+	grunt.registerTask('default', ['less', 'concat', 'uglify']);
 
 };

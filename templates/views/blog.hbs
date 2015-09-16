@@ -1,32 +1,53 @@
-<div class="container">
-	<h1>Blog</h1>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-9">
-			<h4 class="text-weight-normal">Showing {{ data.posts.results.length}} post.</h4>
-			<div class="blog">
+<section id="main-content" class="main-content clearfix">
+    <div class="container">
+        <div class="columns twelve">
+            <div class="top-card clearfix">
+				{{#with data.posts}}
+                    <article>
+                        <div class="content-wrapper">
+                            <a href="{{postUrl results.0.slug}}">
+                                <img src="{{results.0.image.url}}" alt="" width="946" height="500"/>
+
+                                <div class="header-info">
+                                    <h1>{{results.0.title}}</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </article>
+				{{/with}}
+            </div>
+        </div>
+
+        <!-- main article-content     -->
+        <div class="main-article-content clearfix">
+            <div class="columns twelve">
 				{{# each data.posts.results}}
-				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-					<h2><a href="{{postUrl slug}}">{{{title}}}</a></h2>
-					<p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}}
-							{{#if author.name.first}}by {{author.name.first}}{{/if}}
-					</p>
-					<p>{{{content.extended}}}</p>
-					<p class="read-more"><a href="{{postUrl slug}}">Read more...</a></p>
-				</div>
+					{{#unless @first}}
+                        <article class="card card-split color-omg" style="border-color: {{{categories.0.color}}}">
+                            <a href="{{postUrl slug}}">
+                                <div class="split-image"
+                                     style="background-image:url({{{image.url}}});">
+                                </div>
+
+                                <div class="header-info">
+                                    <h1>{{{title}}}</h1>
+                                </div>
+                                <div class="card-meta-data clearfix">
+                                    <span class="visitas">{{{visits}}}</span>
+                                    <time class="time-ago">{{{timeAgo}}}</time>
+                                </div>
+                            </a>
+
+                        </article>
+					{{/unless}}
 				{{/each}}
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3">
-			<h2>Categories</h2>
-			<div style="margin-top: 70px;" class="list-group">
-				<a href="/blog" class="active list-group-item">All Categories</a>
-				{{# each data.categories }}
-				<a href="{{categoryUrl key}}" class="false list-group-item">{{name}}</a>
-				{{/each}}
-			</div>
-		</div>
-	</div>
-	{{>pagination}}
-</div>
+                <div id="preloader" style="display: none;">
+					<img alt="Loading..." src="/images/download.gif">
+                    <div><em>Loading the next set of posts...</em></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main article content     -->
+
+</section>

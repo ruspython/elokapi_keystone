@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var async = require('async');
+var utils = require('../utils');
 
 exports = module.exports = function(req, res) {
 	
@@ -28,17 +29,17 @@ exports = module.exports = function(req, res) {
 			locals.data.categories = results;
 			
 			// Load the counts for each category
-			async.each(locals.data.categories, function(category, next) {
-				
-				keystone.list('Post').model.count().where('categories').in([category.id]).exec(function(err, count) {
-					category.postCount = count;
-					next(err);
-				});
-				
-			}, function(err) {
-				next(err);
-			});
-			
+			//async.each(locals.data.categories, function(category, next) {
+			//	
+			//	keystone.list('Post').model.count().where('categories').in([category.id]).exec(function(err, count) {
+			//		category.postCount = count;
+			//		next(err);
+			//	});
+			//	
+			//}, function(err) {
+			//	next(err);
+			//});
+			next(err);
 		});
 		
 	});
@@ -60,21 +61,23 @@ exports = module.exports = function(req, res) {
 	// Load the posts
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Post').paginate({
+		var q = keystone.list('Post')
+			.paginate({
 				page: req.query.page || 1,
 				perPage: 10,
 				maxPages: 10
 			})
 			.where('state', 'published')
 			.sort('-publishedDate')
-			.populate('author categories');
+			.populate('categories');
 		
 		if (locals.data.category) {
 			q.where('categories').in([locals.data.category]);
 		}
 		
-		q.exec(function(err, results) {
-			locals.data.posts = results;
+		q.exec(function(err, posts) {
+			utils.setTimeAgo(posts.results);
+			locals.data.posts = posts;
 			next(err);
 		});
 		

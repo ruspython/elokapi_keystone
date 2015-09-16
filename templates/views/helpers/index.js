@@ -216,7 +216,7 @@ module.exports = function() {
 	
 	// Direct url link to a specific post
 	_helpers.postUrl = function(postSlug, options) {
-		return ('/blog/post/' + postSlug);
+		return ('/post/' + postSlug);
 	};
 	
 	// might be a ghost helper
@@ -227,7 +227,7 @@ module.exports = function() {
 	
 	// create the category url for a blog-category page
 	_helpers.categoryUrl = function(categorySlug, options) {
-		return ('/blog/' + categorySlug);
+		return ('/' + categorySlug);
 	};
 	
 	// ### Pagination Helpers
