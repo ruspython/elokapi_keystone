@@ -55,13 +55,13 @@
                                      style="border-color: {{{categories.0.color}}}">
                                 <a href="{{postUrl slug}}">
                                     <div class="split-image"
-                                         style="background-image:url({{image.url}});">
+                                         style="background-image:url({{imageUrl image.url "250" "jpg"}});">
                                     </div>
                                     <div class="header-info clearfix">
                                         <h1>{{title}}</h1>
                                     </div>
                                     <div class="card-meta-data clearfix">
-							<span class="visitas">{{visits}} Visita<span ng-if="recentPost.visits>1">s</span></span>
+							<span class="visitas">{{visits}} Visitas</span>
                                         <time class="time-ago">{{timeAgo}}</time>
                                     </div>
                                 </a>

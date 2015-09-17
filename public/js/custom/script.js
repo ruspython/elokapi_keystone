@@ -1,4 +1,5 @@
 (function () {
+    initResponsiveMenu();
     var skip, limit, inc, busyLoading = false, finished = false;
     $(document).ready(function () {
         var article = $('article.article-content');
@@ -18,7 +19,10 @@
     initInc();
     // Infinite scroll
     $(window).scroll(function () {
-        var isMainPage = !!$('#main-content').length;
+        var isMainPage = !!$('#main-content').length,
+	        category = location.pathname
+	        ;
+	    category = category.split('/').join('');
         if (($(window).scrollTop() == $(document).height() - $(window).height()) && isMainPage && !busyLoading && !finished) {
             busyLoading = true;
             $('#preloader').show();
@@ -26,7 +30,8 @@
                 url: "/api/posts",
                 data: {
                     limit: limit,
-                    skip: skip
+                    skip: skip,
+	                categoryKey: category
                 },
                 success: function (posts) {
                     console.log(posts);
@@ -120,6 +125,12 @@
         $('iframe[src^="https://www.youtube.com"]').wrap('<div class="video-container"/>');
         $('a[title="resource"]').parent('p').addClass('wp-caption-text');
         $('p:has(a[title="resource"])').prev().css('margin', '0px');
+	    
+	    if (isMobile()) {
+		    $('.only-mobile').attr('src', $('.only-mobile').data('src'));
+	    } else {
+		    $('.only-desktop').attr('src', $('.only-desktop').data('src'));
+	    }
     }
 
     function onPageLoad() {
@@ -130,6 +141,7 @@
 
         loadExtraContent('script', scripts);
         loadFacebookModules();
+	    addGoogleAnalytics();
 
         function loadExtraContent(elemTag, content) {
             var elem = document.createElement(elemTag);
@@ -154,6 +166,22 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         }
+	    function addGoogleAnalytics() {
+		    (function (i, s, o, g, r, a, m) {
+			    i['GoogleAnalyticsObject'] = r;
+			    i[r] = i[r] || function () {
+					    (i[r].q = i[r].q || []).push(arguments)
+				    }, i[r].l = 1 * new Date();
+			    a = s.createElement(o),
+				    m = s.getElementsByTagName(o)[0];
+			    a.async = 1;
+			    a.src = g;
+			    m.parentNode.insertBefore(a, m)
+		    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		    ga('create', 'UA-67446325-1', 'auto');
+		    ga('send', 'pageview');
+	    }
     }
 
 	function setTimeAgo(posts) {
@@ -193,6 +221,29 @@
 	
 	function isMobile() {
 		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+	}
+
+
+	function initResponsiveMenu() {
+		var navigationMenu = responsiveNav(".nav-collapse", { // Selector
+			animate: true, // Boolean: Use CSS3 transitions, true or false
+			transition: 284, // Integer: Speed of the transition, in milliseconds
+			label: "", // String: Label for the navigation toggle
+			insert: "before", // String: Insert the toggle before or after the navigation
+			customToggle: "", // Selector: Specify the ID of a custom toggle
+			closeOnNavClick: false, // Boolean: Close the navigation when one of the links are clicked
+			openPos: "relative", // String: Position of the opened nav, relative or static
+			navClass: "nav-collapse", // String: Default CSS class. If changed, you need to edit the CSS too!
+			navActiveClass: "js-nav-active", // String: Class that is added to <html> element when nav is active
+			jsClass: "js", // String: 'JS enabled' class which is added to <html> element
+			init: function () {},
+			open: function () {}, // Function: Open callback
+			close: function () {} // Function: Close callback
+		});
+
+		jQuery('.nav-collapse').on('click', 'a', function () {
+			navigationMenu.close();
+		});
 	}
 
 	jQuery(window).scroll(function (event) {

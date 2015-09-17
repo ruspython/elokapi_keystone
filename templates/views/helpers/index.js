@@ -209,6 +209,19 @@ module.exports = function() {
 		}		
 	};
 	
+	_helpers.imageUrl = function(url, width, ext) {
+		var arr;
+		if (url) {
+			arr = url.split('/');
+			arr.splice(arr.length-2, 0, "w_"+width);
+			url = arr.join('/');
+			arr = url.split('.');
+			arr.splice(arr.length-1, 1, ext);
+			url = arr.join('.');
+		}
+		return url;
+	};
+	
 	// ### Content Url Helpers
 	// KeystoneJS url handling so that the routes are in one place for easier
 	// editing.  Should look at Django/Ghost which has an object layer to access
