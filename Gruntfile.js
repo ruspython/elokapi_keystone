@@ -14,8 +14,8 @@ module.exports = function (grunt) {
 				src: [
 					'bower_components/jquery/dist/jquery.js',
 					'bower_components/responsive-nav/responsive-nav.js',
-					'bower_components/whatsapp-sharing/dist/whatsapp-button.js'
-					//'public/js/custom/script.js',
+					'bower_components/whatsapp-sharing/dist/whatsapp-button.js',
+					'public/js/custom/script.js'
 				],
 				dest: '.tmp/js/script.js'
 			}

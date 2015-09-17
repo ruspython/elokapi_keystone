@@ -1,0 +1,11 @@
+{
+  "name": "Elokapi",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "2.1.1",
+    "responsive-nav": "~1.0.39",
+    "whatsapp-sharing": "~1.3.3"
+  },
+  "devDependencies": {
+  }
+}

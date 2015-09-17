@@ -3,18 +3,20 @@ var async = require('async');
 var utils = require('../utils');
 
 exports = module.exports = function(req, res) {
-	
+	var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 	
 	// Init locals
 	locals.section = 'blog';
+	locals.isMainPage = true;
 	locals.filters = {
 		category: req.params.category
 	};
 	locals.data = {
 		posts: [],
-		categories: []
+		categories: [],
+		currentUrl: fullUrl
 	};
 	
 	// Load all categories

@@ -16,7 +16,7 @@
                         <div class="clearfix sharebar">
                             <ul>
                                 <li>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{{currentUrl}}}" class="share-button facebook"></a>
+                                    <a href="" data-title="{{data.post.title}}" data-imageurl="{{{data.post.image.url}}}" class="share-button facebook"></a>
                                 </li>
                                 <li>
                                     <a href="{{{data.post.whatsappLink}}}" class="share-button whatsapp"></a>
@@ -27,10 +27,10 @@
                         <div class="clearfix sharebar">
                             <ul>
                                 <li>
-                                    <a href="" ng-click="shareFacebook()" class="share-button facebook"></a>
+                                    <a href="" data-title="{{data.post.title}}" data-imageurl="{{{data.post.image.url}}}" class="share-button facebook"></a>
                                 </li>
                                 <li>
-                                    <a href="{{whatsappLink}}" class="share-button whatsapp"></a>
+                                    <a href="{{{data.post.whatsappLink}}}" class="share-button whatsapp"></a>
                                 </li>
                             </ul>
 

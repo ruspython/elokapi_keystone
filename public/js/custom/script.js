@@ -8,7 +8,11 @@
         if (article.length) {
             addAdsense(article);
         }
-
+	    $('a.share-button.facebook').on('click', function () {
+		    var title = $(this).data('title'),
+			    imageUrl = $(this).data('imageurl');
+		    shareFacebook(title, imageUrl);
+	    })
     });
 
     initInc();
@@ -68,6 +72,23 @@
     }
 
     // END Infinite scroll
+	
+    // Facebook sharing 
+	function shareFacebook(title, imageUrl) {
+		if (FB) {
+			FB.ui(
+				{
+					name: title,
+					method: 'share',
+					href: window.location.href,
+					link:window.location.href,
+					title: title,
+					picture: (!!imageUrl) ? imageUrl : "",
+					description: "Por el Amor A Los Animales. Únete Para Protegerlos."
+				});
+		}
+	}
+    // END Facebook sharing
 
     function addAdsense($elem) {
         var $headers = $elem.find('h2, h3, h4, h5, h6'),
@@ -104,7 +125,7 @@
     function onPageLoad() {
         var
             scripts = [
-                //'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+                'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
             ];
 
         loadExtraContent('script', scripts);

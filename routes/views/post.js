@@ -9,6 +9,7 @@ exports = module.exports = function(req, res) {
 	
 	// Set locals
 	locals.section = 'blog';
+	locals.isMainPage = false;
 	locals.filters = {
 		post: req.params.post
 	};
