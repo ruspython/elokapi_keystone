@@ -7,7 +7,7 @@
     <title>ElOkapi</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
     <meta property="og:url"   content="{{{data.currentUrl}}}" />
     <meta property="og:type"  content="website" />
@@ -22,7 +22,7 @@
         <meta property="og:image" content="{{{data.post.image.url}}}" />
 	{{/if}}
 	
-    <link rel="stylesheet" href="/styles/site.min.css">
+    <link rel="stylesheet" href="/styles/site.min.css?v=1">
     
     <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -70,9 +70,9 @@
                     <ul>
                         <li>
 							{{#if isMainPage}}
-                                <a href="" data-title="{{data.posts.results.0.title}}" data-imageurl="{{data.posts.results.0.image.url}}" class="share-button facebook"></a>
+                                <a href="#" data-title="{{data.posts.results.0.title}}" data-imageurl="{{data.posts.results.0.image.url}}" class="share-button facebook"></a>
 							{{else}}
-                                <a href="" data-title="{{data.post.title}}" data-imageurl="{{{data.post.image.url}}}" class="share-button facebook"></a>
+                                <a href="#" data-title="{{data.post.title}}" data-imageurl="{{{data.post.image.url}}}" class="share-button facebook"></a>
 							{{/if}}
                         </li>
                         <li>
@@ -97,8 +97,8 @@
 </div>
 
 <footer id="footer" class="footer">
-    <div id="fb-root"></div>
-    <script async src='/js/script.js'></script>
+    <div id="fb-root"></div> 
+    <script src='/js/script.js?v=1'></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>
 
 </footer>

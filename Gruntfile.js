@@ -26,8 +26,7 @@ module.exports = function (grunt) {
 					'public/js/script.js': 'public/js/script.js'
 				}
 			}
-		},
-		
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-less');
@@ -39,8 +38,8 @@ module.exports = function (grunt) {
 
 		var Version = require("node-version-assets");
 		var versionInstance = new Version({
-			assets: ['public/css/all-min.css', 'public/js/app.js'],
-			grepFiles: ['views/prod/index.html']
+			assets: ['public/styles/site.min.css', 'public/js/script.js'],
+			grepFiles: ['templates/views/layouts/default.hbs']
 		});
 
 		var cb = this.async(); // grunt async callback

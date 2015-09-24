@@ -54,7 +54,6 @@ exports.flashMessages = function(req, res, next) {
 	
 };
 
-
 /**
 	Prevents people from accessing protected pages when they're not signed in
  */
